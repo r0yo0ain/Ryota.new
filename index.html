@@ -108,14 +108,6 @@
       ブラウザが audio をサポートしていません。
     </audio>
   </div>
-
-  <!-- ✅ 自動再生を最優先させる -->
-  <div class="track">
-    <h2>1F（自動再生）</h2>
-    <audio id="autoPlayAudio" controls preload="auto" autoplay muted playsinline>
-      <source src="1F.mp3" type="audio/mpeg">
-    </audio>
-  </div>
  <script>
     window.addEventListener('DOMContentLoaded', async () => {
       const audio = document.getElementById('autoPlayAudio');
