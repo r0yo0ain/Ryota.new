@@ -116,22 +116,33 @@
       <source src="1F.mp3" type="audio/mpeg">
     </audio>
   </div>
-
-
-   <script>
-    // ChromeやSafariでは、音声の自動再生は「ユーザー操作」か「mute状態」でのみ許可される
-    // → ページが開いてから自動で unmute する方法
-    window.addEventListener('load', () => {
+ <script>
+    window.addEventListener('DOMContentLoaded', async () => {
       const audio = document.getElementById('autoPlayAudio');
-      audio.muted = true;  // 最初はミュートで再生（ブラウザ規制回避）
-      audio.play().then(() => {
-        // 再生が始まったら少し待ってミュートを解除（自然な再生に）
-        setTimeout(() => { audio.muted = false; }, 1000);
-      }).catch(err => {
-        console.log("自動再生がブロックされました:", err);
-      });
+
+      // 1. 事前に完全ロード
+      audio.load();
+
+      // 2. 即座に再生開始（mutedで自動再生許可）
+      try {
+        await audio.play();
+        // 3. 再生直後にフェードイン
+        audio.volume = 0;
+        audio.muted = false;
+        const fadeIn = setInterval(() => {
+          if (audio.volume < 1) {
+            audio.volume = Math.min(audio.volume + 0.05, 1);
+          } else {
+            clearInterval(fadeIn);
+          }
+        }, 100);
+      } catch (err) {
+        console.warn('自動再生がブロックされました:', err);
+      }
     });
   </script>
+
+  
 
 </body>
 </html>
