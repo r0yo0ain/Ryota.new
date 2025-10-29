@@ -54,7 +54,6 @@
   <div class="track">
     <h2>7F</h2>
     <audio controls>
-        <audio controls preload="none">
       <source src="7F.mp3" type="audio/wav">
       ブラウザが audio をサポートしていません。
     </audio>
@@ -109,6 +108,15 @@
       ブラウザが audio をサポートしていません。
     </audio>
   </div>
+
+  <!-- ✅ 自動再生を最優先させる -->
+  <div class="track">
+    <h2>1F（自動再生）</h2>
+    <audio id="autoPlayAudio" controls preload="auto" autoplay muted playsinline>
+      <source src="1F.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
 
    <script>
     // ChromeやSafariでは、音声の自動再生は「ユーザー操作」か「mute状態」でのみ許可される
