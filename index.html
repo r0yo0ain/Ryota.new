@@ -103,36 +103,10 @@
   <div class="track">
     <h2>1F</h2>
     <audio controls>
-      <audio id="autoPlayAudio" controls preload="auto" autoplay muted playsinline>
       <source src="1F.mp3" type="audio/wav">
       ブラウザが audio をサポートしていません。
     </audio>
   </div>
- <script>
-    window.addEventListener('DOMContentLoaded', async () => {
-      const audio = document.getElementById('autoPlayAudio');
-
-      // 1. 事前に完全ロード
-      audio.load();
-
-      // 2. 即座に再生開始（mutedで自動再生許可）
-      try {
-        await audio.play();
-        // 3. 再生直後にフェードイン
-        audio.volume = 0;
-        audio.muted = false;
-        const fadeIn = setInterval(() => {
-          if (audio.volume < 1) {
-            audio.volume = Math.min(audio.volume + 0.05, 1);
-          } else {
-            clearInterval(fadeIn);
-          }
-        }, 100);
-      } catch (err) {
-        console.warn('自動再生がブロックされました:', err);
-      }
-    });
-  </script>
 
   
 
