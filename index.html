@@ -46,6 +46,7 @@
   <div class="track">
     <h2>屋上</h2>
     <audio controls>
+        <audio controls preload="none">
       <source src="Rooftop.wav" type="audio/wav">
       ブラウザが audio をサポートしていません。
     </audio>
@@ -54,6 +55,7 @@
   <div class="track">
     <h2>7F</h2>
     <audio controls>
+        <audio controls preload="none">
       <source src="7F.wav" type="audio/wav">
       ブラウザが audio をサポートしていません。
     </audio>
@@ -62,6 +64,7 @@
   <div class="track">
     <h2>6F</h2>
     <audio controls>
+        <audio controls preload="none">
       <source src="6F.wav" type="audio/wav">
       ブラウザが audio をサポートしていません。
     </audio>
@@ -70,6 +73,7 @@
   <div class="track">
     <h2>5F</h2>
     <audio controls>
+        <audio controls preload="none">
       <source src="5F.wav" type="audio/wav">
       ブラウザが audio をサポートしていません。
     </audio>
@@ -87,6 +91,7 @@
   <div class="track">
     <h2>3F</h2>
     <audio controls>
+        <audio controls preload="none">
       <source src="3F.wav" type="audio/wav">
       ブラウザが audio をサポートしていません。
     </audio>
@@ -95,6 +100,7 @@
   <div class="track">
     <h2>2F</h2>
     <audio controls>
+        <audio controls preload="none">
       <source src="2F.wav" type="audio/wav">
       ブラウザが audio をサポートしていません。
     </audio>
@@ -103,10 +109,26 @@
   <div class="track">
     <h2>1F</h2>
     <audio controls>
+      <audio id="autoPlayAudio" controls preload="auto" autoplay muted playsinline>
       <source src="1F.wav" type="audio/wav">
       ブラウザが audio をサポートしていません。
     </audio>
   </div>
+
+   <script>
+    // ChromeやSafariでは、音声の自動再生は「ユーザー操作」か「mute状態」でのみ許可される
+    // → ページが開いてから自動で unmute する方法
+    window.addEventListener('load', () => {
+      const audio = document.getElementById('autoPlayAudio');
+      audio.muted = true;  // 最初はミュートで再生（ブラウザ規制回避）
+      audio.play().then(() => {
+        // 再生が始まったら少し待ってミュートを解除（自然な再生に）
+        setTimeout(() => { audio.muted = false; }, 1000);
+      }).catch(err => {
+        console.log("自動再生がブロックされました:", err);
+      });
+    });
+  </script>
 
 </body>
 </html>
